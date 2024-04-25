@@ -59,5 +59,5 @@ class FormWhoOrdersScooter(BasePageScooter):
 
     @allure.step('Проверить, что url соответствует https://qa-scooter.praktikum-services.ru/order')
     def check_current_url(self):
-        current_url = self.driver.current_url
+        current_url = self.get_current_url()
         assert current_url == 'https://qa-scooter.praktikum-services.ru/order'

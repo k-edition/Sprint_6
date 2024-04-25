@@ -10,3 +10,13 @@ class BasePageScooter:
     def wait_and_find_element(self, locator):
         WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(locator))
         return self.driver.find_element(*locator)
+
+    def find_element(self, locator):
+        return self.driver.find_element(*locator)
+
+    def scroll_to_element(self, elment):
+        elem = self.driver.find_element(*elment)
+        return self.driver.execute_script("arguments[0].scrollIntoView();", elem)
+
+    def get_current_url(self):
+        return self.driver.current_url

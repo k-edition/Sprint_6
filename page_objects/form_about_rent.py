@@ -13,7 +13,6 @@ class FormAboutRent(BasePageScooter):
     comment_field = (By.XPATH, "//input[contains(@placeholder, 'Комментарий')]")
     order_button = (By.XPATH, "//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']")
     button_yes = (By.XPATH, "//button[text()='Да']")
-    order_window = (By.XPATH, "//div[@class='Order_Modal__YZ-d3']")
     order_text = (By.XPATH, "//div[@class='Order_ModalHeader__3FDaJ']")
 
     @allure.step('Выбор даты, выпадающего календаря')
@@ -54,6 +53,6 @@ class FormAboutRent(BasePageScooter):
 
     @allure.step('Проверить, что появилось окно с сообщением "Заказ оформлен"')
     def check_order_is_placed(self):
-        new_window = self.wait_and_find_element(self.order_window)
-        text_in_window = self.driver.find_element(*self.order_text).text
+        new_window = self.wait_and_find_element(self.order_text)
+        text_in_window = new_window.text
         assert new_window.is_displayed() and 'Заказ оформлен' in text_in_window
