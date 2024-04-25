@@ -14,6 +14,12 @@ class BasePageScooter:
     def find_element(self, locator):
         return self.driver.find_element(*locator)
 
+    def switch_to_window(self, url):
+        WebDriverWait(self.driver, 5).until(expected_conditions.number_of_windows_to_be(2))
+        windows = self.driver.window_handles
+        self.driver.switch_to.window(windows[-1])
+        WebDriverWait(self.driver, 5).until(expected_conditions.url_contains(url))
+
     def scroll_to_element(self, elment):
         elem = self.driver.find_element(*elment)
         return self.driver.execute_script("arguments[0].scrollIntoView();", elem)
