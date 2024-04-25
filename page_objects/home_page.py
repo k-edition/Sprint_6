@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from page_objects.base_page import BasePageScooter
+from data import DataScooter
 import allure
 
 
@@ -82,15 +83,14 @@ class HomePageScooter(BasePageScooter):
     @allure.step('2.Проверить, что текст ответа: "Сутки — 400 рублей. Оплата курьеру — наличными или картой."')
     def check_text_question_0(self):
         actually_value = self.wait_and_find_element(self.text_question_0).text
-        expected_value = 'Сутки — 400 рублей. Оплата курьеру — наличными или картой.'
+        expected_value = DataScooter.ANSWER_0
         assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
 
     @allure.step('2.Проверить, что текст ответа: "Пока что у нас так: один заказ — один самокат. Если хотите '
                  'покататься с друзьями, можете просто сделать несколько заказов — один за другим."')
     def check_text_question_1(self):
         actually_value = self.wait_and_find_element(self.text_question_1).text
-        expected_value = ('Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, '
-                          'можете просто сделать несколько заказов — один за другим.')
+        expected_value = DataScooter.ANSWER_1
         assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
 
     @allure.step('2.Проверить, что текст ответа: "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат '
@@ -98,45 +98,40 @@ class HomePageScooter(BasePageScooter):
                  'курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."')
     def check_text_question_2(self):
         actually_value = self.wait_and_find_element(self.text_question_2).text
-        expected_value = ('Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. '
-                          'Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. '
-                          'Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.')
+        expected_value = DataScooter.ANSWER_2
         assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
 
     @allure.step('2.Проверить, что текст ответа: "Только начиная с завтрашнего дня. Но скоро станем расторопнее."')
     def check_text_question_3(self):
         actually_value = self.wait_and_find_element(self.text_question_3).text
-        expected_value = 'Только начиная с завтрашнего дня. Но скоро станем расторопнее.'
+        expected_value = DataScooter.ANSWER_3
         assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
 
     @allure.step('2.Проверить, что текст ответа: "Пока что нет! Но если что-то срочное — всегда можно позвонить '
                  'в поддержку по красивому номеру 1010."')
     def check_text_question_4(self):
         actually_value = self.wait_and_find_element(self.text_question_4).text
-        expected_value = ('Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому '
-                          'номеру 1010.')
+        expected_value = DataScooter.ANSWER_4
         assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
 
     @allure.step('2.Проверить, что текст ответа: "Самокат приезжает к вам с полной зарядкой. Этого хватает на '
                  'восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."')
     def check_text_question_5(self):
         actually_value = self.wait_and_find_element(self.text_question_5).text
-        expected_value = ('Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если '
-                          'будете кататься без передышек и во сне. Зарядка не понадобится.')
+        expected_value = DataScooter.ANSWER_5
         assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
 
     @allure.step('2.Проверить, что текст ответа: "Да, пока самокат не привезли. Штрафа не будет, объяснительной '
                  'записки тоже не попросим. Все же свои."')
     def check_text_question_6(self):
         actually_value = self.wait_and_find_element(self.text_question_6).text
-        expected_value = ('Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. '
-                          'Все же свои.')
+        expected_value = DataScooter.ANSWER_6
         assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
 
     @allure.step('2.Проверить, что текст ответа: "Да, обязательно. Всем самокатов! И Москве, и Московской области."')
     def check_text_question_7(self):
         actually_value = self.wait_and_find_element(self.text_question_7).text
-        expected_value = 'Да, обязательно. Всем самокатов! И Москве, и Московской области.'
+        expected_value = DataScooter.ANSWER_7
         assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
 
     @allure.step('Проверить, что url соответствует https://qa-scooter.praktikum-services.ru/')
