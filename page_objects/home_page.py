@@ -1,27 +1,26 @@
 from selenium.webdriver.common.by import By
 from page_objects.base_page import BasePageScooter
-from data import DataScooter
 import allure
 
 
 class HomePageScooter(BasePageScooter):
 
     question_0 = (By.ID, "accordion__heading-0")
-    text_question_0 = (By.XPATH, "//div[@id='accordion__panel-0']/p")
+    answer_0 = (By.XPATH, "//div[@id='accordion__panel-0']/p")
     question_1 = (By.ID, "accordion__heading-1")
-    text_question_1 = (By.XPATH, "//div[@id='accordion__panel-1']/p")
+    answer_1 = (By.XPATH, "//div[@id='accordion__panel-1']/p")
     question_2 = (By.ID, "accordion__heading-2")
-    text_question_2 = (By.XPATH, "//div[@id='accordion__panel-2']/p")
+    answer_2 = (By.XPATH, "//div[@id='accordion__panel-2']/p")
     question_3 = (By.ID, "accordion__heading-3")
-    text_question_3 = (By.XPATH, "//div[@id='accordion__panel-3']/p")
+    answer_3 = (By.XPATH, "//div[@id='accordion__panel-3']/p")
     question_4 = (By.ID, "accordion__heading-4")
-    text_question_4 = (By.XPATH, "//div[@id='accordion__panel-4']/p")
+    answer_4 = (By.XPATH, "//div[@id='accordion__panel-4']/p")
     question_5 = (By.ID, "accordion__heading-5")
-    text_question_5 = (By.XPATH, "//div[@id='accordion__panel-5']/p")
+    answer_5 = (By.XPATH, "//div[@id='accordion__panel-5']/p")
     question_6 = (By.ID, "accordion__heading-6")
-    text_question_6 = (By.XPATH, "//div[@id='accordion__panel-6']/p")
+    answer_6 = (By.XPATH, "//div[@id='accordion__panel-6']/p")
     question_7 = (By.ID, "accordion__heading-7")
-    text_question_7 = (By.XPATH, "//div[@id='accordion__panel-7']/p")
+    answer_7 = (By.XPATH, "//div[@id='accordion__panel-7']/p")
 
     order_button_header = (By.XPATH, "//div[@class='Header_Nav__AGCXC']/button[text()='Заказать']")
     order_button_middle = (By.XPATH, "//div[@class='Home_FinishButton__1_cWm']/button")
@@ -32,45 +31,20 @@ class HomePageScooter(BasePageScooter):
     def click_cookie_button(self):
         self.wait_and_find_element(self.cookie_button).click()
 
-    @allure.step('1.Клик на вопрос "Сколько это стоит? И как оплатить?"')
-    def click_question_0(self):
-        self.scroll_to_element(self.question_0)
-        self.wait_and_find_element(self.question_0).click()
+    @staticmethod
+    def get_question(num):
+        question = (By.ID, f"accordion__heading-{num}")
+        return question
 
-    @allure.step('1.Клик на вопрос "Хочу сразу несколько самокатов! Так можно?"')
-    def click_question_1(self):
-        self.scroll_to_element(self.question_1)
-        self.wait_and_find_element(self.question_1).click()
+    @staticmethod
+    def get_answer(num):
+        answer = (By.XPATH, f"//div[@id='accordion__panel-{num}']/p")
+        return answer
 
-    @allure.step('1.Клик на вопрос "Как рассчитывается время аренды?"')
-    def click_question_2(self):
-        self.scroll_to_element(self.question_2)
-        self.wait_and_find_element(self.question_2).click()
-
-    @allure.step('1.Клик на вопрос "Можно ли заказать самокат прямо на сегодня?"')
-    def click_question_3(self):
-        self.scroll_to_element(self.question_3)
-        self.wait_and_find_element(self.question_3).click()
-
-    @allure.step('1.Клик на вопрос "Можно ли продлить заказ или вернуть самокат раньше?"')
-    def click_question_4(self):
-        self.scroll_to_element(self.question_4)
-        self.wait_and_find_element(self.question_4).click()
-
-    @allure.step('1.Клик на вопрос "Вы привозите зарядку вместе с самокатом?"')
-    def click_question_5(self):
-        self.scroll_to_element(self.question_5)
-        self.wait_and_find_element(self.question_5).click()
-
-    @allure.step('1.Клик на вопрос "Можно ли отменить заказ?"')
-    def click_question_6(self):
-        self.scroll_to_element(self.question_6)
-        self.wait_and_find_element(self.question_6).click()
-
-    @allure.step('1.Клик на вопрос "Я живу за МКАДом, привезёте?"')
-    def click_question_7(self):
-        self.scroll_to_element(self.question_7)
-        self.wait_and_find_element(self.question_7).click()
+    @allure.step('1.Клик на вопрос')
+    def click_question(self, num):
+        self.scroll_to_element(self.get_question(num))
+        self.wait_and_find_element(self.get_question(num)).click()
 
     @allure.step('Клик на кнопку "Заказать" вверху страницы')
     def click_order_button_header(self):
@@ -80,58 +54,10 @@ class HomePageScooter(BasePageScooter):
     def click_order_button_middle(self):
         self.wait_and_find_element(self.order_button_middle).click()
 
-    @allure.step('2.Проверить, что текст ответа: "Сутки — 400 рублей. Оплата курьеру — наличными или картой."')
-    def check_text_question_0(self):
-        actually_value = self.wait_and_find_element(self.text_question_0).text
-        expected_value = DataScooter.ANSWER_0
-        assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
-
-    @allure.step('2.Проверить, что текст ответа: "Пока что у нас так: один заказ — один самокат. Если хотите '
-                 'покататься с друзьями, можете просто сделать несколько заказов — один за другим."')
-    def check_text_question_1(self):
-        actually_value = self.wait_and_find_element(self.text_question_1).text
-        expected_value = DataScooter.ANSWER_1
-        assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
-
-    @allure.step('2.Проверить, что текст ответа: "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат '
-                 '8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ '
-                 'курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."')
-    def check_text_question_2(self):
-        actually_value = self.wait_and_find_element(self.text_question_2).text
-        expected_value = DataScooter.ANSWER_2
-        assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
-
-    @allure.step('2.Проверить, что текст ответа: "Только начиная с завтрашнего дня. Но скоро станем расторопнее."')
-    def check_text_question_3(self):
-        actually_value = self.wait_and_find_element(self.text_question_3).text
-        expected_value = DataScooter.ANSWER_3
-        assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
-
-    @allure.step('2.Проверить, что текст ответа: "Пока что нет! Но если что-то срочное — всегда можно позвонить '
-                 'в поддержку по красивому номеру 1010."')
-    def check_text_question_4(self):
-        actually_value = self.wait_and_find_element(self.text_question_4).text
-        expected_value = DataScooter.ANSWER_4
-        assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
-
-    @allure.step('2.Проверить, что текст ответа: "Самокат приезжает к вам с полной зарядкой. Этого хватает на '
-                 'восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."')
-    def check_text_question_5(self):
-        actually_value = self.wait_and_find_element(self.text_question_5).text
-        expected_value = DataScooter.ANSWER_5
-        assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
-
-    @allure.step('2.Проверить, что текст ответа: "Да, пока самокат не привезли. Штрафа не будет, объяснительной '
-                 'записки тоже не попросим. Все же свои."')
-    def check_text_question_6(self):
-        actually_value = self.wait_and_find_element(self.text_question_6).text
-        expected_value = DataScooter.ANSWER_6
-        assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
-
-    @allure.step('2.Проверить, что текст ответа: "Да, обязательно. Всем самокатов! И Москве, и Московской области."')
-    def check_text_question_7(self):
-        actually_value = self.wait_and_find_element(self.text_question_7).text
-        expected_value = DataScooter.ANSWER_7
+    @allure.step('2.Проверить текст ответа')
+    def check_text_answer(self, num, answer):
+        actually_value = self.wait_and_find_element(self.get_answer(num)).text
+        expected_value = answer
         assert actually_value == expected_value, f'Ожидалось значение: "{expected_value}", получено "{actually_value}"'
 
     @allure.step('Проверить, что url соответствует https://qa-scooter.praktikum-services.ru/')
