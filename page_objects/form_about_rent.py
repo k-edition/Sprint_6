@@ -2,11 +2,14 @@ from selenium.webdriver.common.by import By
 from page_objects.base_page import BasePageScooter
 import allure
 
+
 class FormAboutRent(BasePageScooter):
 
     date_field = (By.XPATH, "//input[contains(@placeholder, 'Когда привезти')]")
     selected_day = (By.XPATH, "//div[contains(@class, 'selected')]")
     rent_time_field = (By.CLASS_NAME, 'Dropdown-root')
+    period = (By.XPATH, "//div[@class='Dropdown-menu']/div[text()='сутки']")
+    colour_check_box = (By.XPATH, "//input[@id='black']")
     comment_field = (By.XPATH, "//input[contains(@placeholder, 'Комментарий')]")
     order_button = (By.XPATH, "//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']")
     button_yes = (By.XPATH, "//button[text()='Да']")
@@ -24,12 +27,16 @@ class FormAboutRent(BasePageScooter):
     def set_rent_time(self, rent_time):
         set_time = self.wait_and_find_element(self.rent_time_field)
         set_time.click()
-        select_time = self.wait_and_find_element((By.XPATH, f"//div[@class='Dropdown-menu']/div[text()='{rent_time}']"))
+        text = str(self.period[1]).replace('сутки', f'{rent_time}')
+        new_period = (By.XPATH, f"{text}")
+        select_time = self.wait_and_find_element(new_period)
         select_time.click()
 
     @allure.step('Выбор цвета в чекбоксе')
     def set_colour(self, colour):
-        set_colour = self.wait_and_find_element((By.XPATH, f"//input[@id='{colour}']"))
+        text = str(self.colour_check_box[1]).replace('black', f'{colour}')
+        new_colour = (By.XPATH, f"{text}")
+        set_colour = self.wait_and_find_element(new_colour)
         set_colour.click()
 
     @allure.step('Ввод комментария')
@@ -50,4 +57,3 @@ class FormAboutRent(BasePageScooter):
         new_window = self.wait_and_find_element(self.order_window)
         text_in_window = self.driver.find_element(*self.order_text).text
         assert new_window.is_displayed() and 'Заказ оформлен' in text_in_window
-

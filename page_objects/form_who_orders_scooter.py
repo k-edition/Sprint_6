@@ -10,6 +10,7 @@ class FormWhoOrdersScooter(BasePageScooter):
     surname_field = (By.XPATH, "//input[contains(@placeholder, 'Фамилия')]")
     address_field = (By.XPATH, "//input[contains(@placeholder, 'Адрес')]")
     station_field = (By.XPATH, "//input[contains(@placeholder, 'Станция')]")
+    the_station = (By.XPATH, "//ul[@class='select-search__options']//div[text()='Арбатская']")
     phone_field = (By.XPATH, "//input[contains(@placeholder, 'Телефон')]")
     submit_button = (By.XPATH, "//button[text()='Далее']")
 
@@ -35,7 +36,9 @@ class FormWhoOrdersScooter(BasePageScooter):
     def set_station(self, station):
         set_station = self.wait_and_find_element(self.station_field)
         set_station.click()
-        set_the_station = self.wait_and_find_element((By.XPATH, f"//ul[@class='select-search__options']//div[text()='{station}']"))
+        text = str(self.the_station[1]).replace('Арбатская', f'{station}')
+        new_station = (By.XPATH, f"{text}")
+        set_the_station = self.wait_and_find_element(new_station)
         set_the_station.click()
 
     @allure.step('Вввод номера телефона заказчика')
