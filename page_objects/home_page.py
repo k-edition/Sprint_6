@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
 from page_objects.base_page import BasePageScooter
-from page_objects.form_who_orders_scooter import FormWhoOrdersScooter
 import allure
 
 
@@ -83,12 +82,10 @@ class HomePageScooter(BasePageScooter):
     @allure.step('Клик на кнопку "Заказать" вверху страницы')
     def click_order_button_header(self):
         self.driver.find_element(*self.order_button_header).click()
-        return FormWhoOrdersScooter(self.driver)
 
     @allure.step('Клик на кнопку "Заказать" внизу страницы')
     def click_order_button_middle(self):
         self.driver.find_element(*self.order_button_middle).click()
-        return FormWhoOrdersScooter(self.driver)
 
     @allure.step('2.Проверить, что текст ответа: "Сутки — 400 рублей. Оплата курьеру — наличными или картой."')
     def check_text_question_0(self):

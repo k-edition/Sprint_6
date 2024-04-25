@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
 from page_objects.base_page import BasePageScooter
-from page_objects.form_about_rent import FormAboutRent
 import allure
 
 
@@ -49,7 +48,6 @@ class FormWhoOrdersScooter(BasePageScooter):
     @allure.step('Клик на кнопку "Далее"')
     def click_submit_button(self):
         self.wait_and_find_element(self.submit_button).click()
-        return FormAboutRent(self.driver)
 
     @allure.step('Клик на логотип "Самокат')
     def click_logo_scooter(self):
